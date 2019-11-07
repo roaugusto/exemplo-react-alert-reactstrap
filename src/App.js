@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { Alert, Button } from 'reactstrap';
+
 import './App.css';
+export default class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  state = {
+    textButton: 'Abrir Alert',
+    isAlertVisible: false
+  }
+
+  handleClickAlert = () => {
+    const newMessage = !this.state.isAlertVisible ? 'Fechar Alert' : 'Abrir Alert'
+    this.setState(
+      {
+        isAlertVisible: !this.state.isAlertVisible,
+        textButton: newMessage,
+      })
+  }
+
+  render() {
+    const { textButton, isAlertVisible } = this.state
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Button
+            onClick={this.handleClickAlert}
+            color="primary mb-3">{textButton}</Button>
+
+          <Alert className="custom-alert"
+            color="primary"
+            isOpen={isAlertVisible}
+            toggle={this.handleClickAlert}>
+            Mensagem de teste do alert!
+          </Alert>
+        </header>
+      </div>
+    )
+  }
 }
-
-export default App;
